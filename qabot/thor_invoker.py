@@ -40,7 +40,7 @@ class ThorInvoker:
         else:
             return "Failed to restart release {}".format(release_name)
 
-    def get_releases(dummy=None, dummy2=None):
+    def get_releases(self):
         """Simple get request to get all releases"""
         thorlib = ThorLib()
         response = thorlib.send_get_request("/releases")

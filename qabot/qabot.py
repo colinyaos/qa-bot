@@ -3,7 +3,6 @@ import slack
 import logging
 import traceback
 
-os.environ["SLACK_API_TOKEN"] = "blablabla"
 os.environ["GITHUB_TOKEN"] = "blablablagithub"
 os.environ["JENKINS_USER_API_TOKEN"] = "blablajenkins"
 os.environ["JIRA_API_TOKEN"] = "blablajira"
@@ -256,8 +255,9 @@ def main():
 
 
 if __name__ == "__main__":
-    while True:
-        userinput = input("Command: ")
-        words = userinput.split()
-        print(words)
-        print(process_command(words[0], words[1:]))
+    main()
+    # while True:
+    # userinput = input("Command: ")
+    # words = userinput.split()
+    # print(words)
+    # print(process_command(words[0], words[1:]))
