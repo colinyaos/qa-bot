@@ -3,12 +3,18 @@ import slack
 import logging
 import traceback
 
+os.environ["SLACK_API_TOKEN"] = "blablabla"
+os.environ["GITHUB_TOKEN"] = "blablablagithub"
+os.environ["JENKINS_USER_API_TOKEN"] = "blablajenkins"
+os.environ["JIRA_API_TOKEN"] = "blablajira"
+
 from jenkins_job_invoker import JenkinsJobInvoker
 from manifests_checker import ManifestsChecker
 from state_of_the_nation import StateOfTheNation
 from greeter import Greeter
 from release import ReleaseManager
 from pipeline_maintenance import PipelineMaintenance
+from thor_invoker import ThorInvoker
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
@@ -28,7 +34,11 @@ def list_all_commands():
 
 
 commands_map = {
-    "help": {"args": "", "example": "@qa-bot help", "call": list_all_commands,},
+    "help": {
+        "args": "",
+        "example": "@qa-bot help",
+        "call": list_all_commands,
+    },
     "compare-manifests": {
         "args": "pr number and signed-off manifest",
         "example": "@qa-bot compare-manifests 928 internalstaging.datastage.io",
@@ -129,6 +139,11 @@ commands_map = {
         "example": "@qa-bot get-ci-summary",
         "call": PipelineMaintenance().get_ci_summary,
     },
+    "get-releases": {
+        "args": "",
+        "example": "@qa-bot get-releases",
+        "call": ThorInvoker().get_releases,
+    },
     "hello": {"args": "", "example": "@qa-bot hello", "call": Greeter().say_hello},
 }
 
@@ -151,6 +166,7 @@ def process_command(command, args):
 
     # execute command
     if command in commands_map.keys():
+        print(command)
         log.info("args: " + str(args))
         if len(args) >= 1 and args[0] == "help":
             return f"""instructions for {command}: \n
@@ -235,4 +251,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        userinput = input("Command: ")
+        words = userinput.split()
+        print(words)
+        print(process_command(words[0], words[1:]))

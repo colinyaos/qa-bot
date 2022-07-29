@@ -3,13 +3,13 @@
 import json
 import os
 import logging
-from lib.thorlib import send_get_request, send_post_request, send_put_request, ThorLib
+from lib.thorlib import ThorLib
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
 
 
-class thor_invoker:
+class ThorInvoker:
     # Hermod
     def start_release(release_name):
         """
@@ -38,6 +38,12 @@ class thor_invoker:
             return "Restarted release {}".format(release_name)
         else:
             return "Failed to restart release {}".format(release_name)
+
+    def get_releases(dummy=None, dummy2=None):
+        """Simple get request to get all releases"""
+        thorlibobj = ThorLib()
+        response = thorlibobj.send_get_request("/releases")
+        return response
 
     def check_release_status():
         # not implemented yet

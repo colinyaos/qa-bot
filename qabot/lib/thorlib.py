@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 class ThorLib:
     def __init__(self):
         # self.thor_instance = thor_instance
-        self.base_url = "placeholder.com"
+        self.base_url = "http://localhost:8001"
         # Eventually this will be qa.planx-pla.net/thor,
         # while being developed it will be colinyao.planx-pla.net,
         # but we don't have this yet
@@ -21,8 +21,8 @@ class ThorLib:
         Send a GET request to the given url
         """
         log.debug("sending GET request to {}".format(url))
-        r = requests.get(url)
-        return "GET request to {} sent".format(url)
+        r = requests.get(self.base_url + url)
+        return {"status_code": r.status_code, "body": r.json()}
 
     def send_post_request(self, endpoint, body=None):
         """
