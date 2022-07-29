@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 class ThorInvoker:
     # Hermod
-    def start_release(release_name):
+    def start_release(self, release_name):
         """
         Starts a release in thor.
         Eventual invoke syntax:
@@ -23,6 +23,7 @@ class ThorInvoker:
         if response["status_code"] == 200:
             return "Started release {}".format(release_name)
         else:
+            print(response)
             return "Failed to start release {}".format(release_name)
 
     def restart_release(release_name):
@@ -41,8 +42,8 @@ class ThorInvoker:
 
     def get_releases(dummy=None, dummy2=None):
         """Simple get request to get all releases"""
-        thorlibobj = ThorLib()
-        response = thorlibobj.send_get_request("/releases")
+        thorlib = ThorLib()
+        response = thorlib.send_get_request("/releases")
         return response
 
     def check_release_status():

@@ -144,6 +144,11 @@ commands_map = {
         "example": "@qa-bot get-releases",
         "call": ThorInvoker().get_releases,
     },
+    "start-release": {
+        "args": "release_name",
+        "example": "@qa-bot start-release 2022.07",
+        "call": ThorInvoker().start_release,
+    },
     "hello": {"args": "", "example": "@qa-bot hello", "call": Greeter().say_hello},
 }
 
